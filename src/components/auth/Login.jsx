@@ -1,4 +1,4 @@
-  import React, { useState } from "react";
+import React, { useState } from "react";
 import {
   TextField,
   Button,
@@ -8,6 +8,8 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+const BASE_URL =
+  "http://ec2-3-124-12-219.eu-central-1.compute.amazonaws.com/api/auth/sign-in";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -24,9 +26,20 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
+
+    try {
+      const request = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await request.json();
+      console.log(data);
+    } catch (error) {}
   };
 
   return (

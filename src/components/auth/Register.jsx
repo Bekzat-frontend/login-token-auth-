@@ -8,8 +8,12 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
+import { useNavigate } from "react-router";
+const BASE_URL =
+  "http://ec2-3-124-12-219.eu-central-1.compute.amazonaws.com/api/auth/sign-up";
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,8 +27,23 @@ const RegistrationForm = () => {
     setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+
+    try {
+      const request = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await request.json();
+      console.log(data);
+    } catch (error) {
+      navigate()
+    }
   };
 
   return (
