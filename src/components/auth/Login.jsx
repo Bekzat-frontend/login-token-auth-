@@ -13,8 +13,8 @@ const BASE_URL =
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "mamateminovbekzat793@gmail.com",
+    password: "bekzat0626",
     rememberMe: false,
   });
 
